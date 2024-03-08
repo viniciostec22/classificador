@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+<title>Login</title>
+{% endblock titulo %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 form-container">
+        <h2>Login</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'login' %}" method="POST"> {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Nome de usuário</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome de usuário">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="password" name="senha" placeholder="Digite sua senha">
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <br>
+        <a href="{% url 'cadastro' %}" >Cadastrar novo usuário</a>
+    </div>
+</div>
+{% endblock %}

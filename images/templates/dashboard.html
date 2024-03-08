@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+<title>Relatorio</title>
+{% endblock titulo %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'images/css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container dashboard">
+        <canvas id="myChart"></canvas>
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  // Defina uma lista de cores
+  const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33EC', '#33ECFF', '#C833FF'];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: {{categorias|safe}},
+      datasets: [{
+        label: 'Qtd de imagens por classe',
+        data: [
+          {% for item in info_doenca %}
+            {{ item.total_analises }},
+          {% endfor %}
+        ],
+        backgroundColor: colors, // Use as cores definidas
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+{% endblock content %}

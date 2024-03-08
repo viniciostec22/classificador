@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+<title>Download</title>
+{% endblock titulo %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+<h1>Download de Imagens</h1>
+<p>Quantidade de imagens por classe:</p>
+<ul>
+    {% for classe, contagem in contagem_por_classe.items %}
+        <li>{{ classe }}: {{ contagem }}</li>
+    {% endfor %}
+</ul>
+<p>Clique no botão abaixo para baixar as imagens classificadas:</p>
+<form action="{% url 'download' %}" method="post"> {% csrf_token %}
+    <button class="btn btn-primary" type="submit">Baixar Imagens</button>
+</form>
+{% endblock %}
