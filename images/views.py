@@ -36,9 +36,10 @@ def images(request):
 @login_required
 def galeria(request):
     images = Imagem.objects.filter(classe=False)
+    tot_images = Imagem.objects.filter(classe=False).count()
     classes = Doenca.objects.all()
     if request.method == "GET":
-        return render(request, 'galeria_images.html',{'images':images, 'classes':classes})
+        return render(request, 'galeria_images.html',{'images':images, 'classes':classes, 'tot_images':tot_images})
     elif request.method == "POST":
         imagem_id = request.POST.get('image_id')  
         classe_id = request.POST.get('classe_id')  
@@ -85,6 +86,7 @@ def dashboard(request):
 @login_required
 def download(request):
     if request.method == 'GET':
+        tot_download = Analise.objects.all().count() 
         # Recuperar todas as análises do banco de dados
         analises = Analise.objects.all()
 
@@ -97,8 +99,8 @@ def download(request):
             if classe not in contagem_por_classe:
                 contagem_por_classe[classe] = 0
             contagem_por_classe[classe] += 1
-
-        return render(request, 'download.html', {'contagem_por_classe': contagem_por_classe})
+        
+        return render(request, 'download.html', {'contagem_por_classe': contagem_por_classe, 'tot_download':tot_download})
     elif request.method == "POST":
         # Recuperar todas as análises do banco de dados
         analises = Analise.objects.all()

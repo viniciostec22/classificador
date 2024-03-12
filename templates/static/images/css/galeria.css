@@ -16,3 +16,8 @@ button {
     height: 100%; /* altura igual à do select */
     margin-left: 20px;
 }
+.contador{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
