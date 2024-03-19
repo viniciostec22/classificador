@@ -72,16 +72,28 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'imagens',
-        'USER': 'root',
-        'PASSWORD': '059580',
-        'HOST': 'localhost',  # ou o host do seu servidor MySQL
-        'PORT': '3306',       # porta padrão do MySQL
+if DEBUG == True:
+     DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'classificador_imagens_teste',
+            'USER': 'root',
+            'PASSWORD': '059580',
+            'HOST': 'localhost',  # ou o host do seu servidor MySQL
+            'PORT': '3306',       # porta padrão do MySQL
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'classificador_imagens',
+            'USER': 'root',
+            'PASSWORD': '059580',
+            'HOST': 'localhost',  # ou o host do seu servidor MySQL
+            'PORT': '3306',       # porta padrão do MySQL
+        }
+    }
 
 
 

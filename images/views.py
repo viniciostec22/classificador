@@ -12,21 +12,41 @@ import zipfile
 from django.http import HttpResponse
 import shutil
 from django.contrib.auth.decorators import login_required
+import magic
 
 @login_required
 def images(request):
     if request.method == "GET":
         return render(request, 'upload_images.html')
+    
     elif request.method == "POST":
         imagens = request.FILES.getlist('image')
         
         if imagens:
             for imagem in imagens:
-                nova_imagem = Imagem.objects.create(
-                    image=imagem,
-                    data_criacao=timezone.now(),
-                    usuario=request.user
-                )
+                try:
+                    #verificar tipo de MIME do arquivo
+                    mime = magic.Magic(mime=True)
+                    file_type = mime.from_buffer(imagem.read(1024))
+                    
+                    #verifcar se o tipo MIME começa com 'image
+                    if not file_type.startswith('image'):
+                        # Se não for uma imagem, retorne uma resposta de erro
+                        messages.add_message(request, constants.ERROR, "Apenas imagens são permitidas")
+                        return redirect('/images/new_images/')
+                    
+                    # Se for uma imagem, salve-a no banco de dados
+                    nova_imagem = Imagem.objects.create(
+                        image=imagem,
+                        data_criacao=timezone.now(),
+                        usuario=request.user
+                    )
+                except Exception as e:
+                    # Lidar com exceções que podem ocorrer durante a leitura ou verificação do tipo MIME
+                    messages.add_message(request, constants.ERROR, f"Erro ao processar imagem: {str(e)}")
+                    return redirect('/images/new_images/')
+                
+            # se foi salva no banco mostra a mesagem de sucesso e redireciona 
             messages.add_message(request, constants.SUCCESS, "Imagens salvas com sucesso")
             return redirect('/images/new_images/')
         else:
@@ -45,10 +65,10 @@ def galeria(request):
         classe_id = request.POST.get('classe_id')  
         # comentarios = request.POST.get('comentarios')
         
-        # Supondo que você tenha o especialista (usuário logado) disponível na request
+        # especialista (usuário logado) disponível na request
         especialista = request.user
         
-        #Crie uma instância da classe Analise com os dados fornecidos
+        # instância da classe Analise com os dados fornecidos
         imagem = Imagem.objects.get(pk=imagem_id)  # Obter a imagem com base no ID fornecido
         analise = Analise(
             imagem_id=imagem_id,
