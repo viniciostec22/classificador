@@ -13,6 +13,8 @@ from django.http import HttpResponse
 import shutil
 from django.contrib.auth.decorators import login_required
 import magic
+from django.db import transaction
+
 
 @login_required
 def images(request):
@@ -62,28 +64,43 @@ def galeria(request):
         return render(request, 'galeria_images.html',{'images':images, 'classes':classes, 'tot_images':tot_images})
     elif request.method == "POST":
         imagem_id = request.POST.get('image_id')  
-        classe_id = request.POST.get('classe_id')  
-        # comentarios = request.POST.get('comentarios')
+        classe_id = request.POST.get('classe_id') 
         
         # especialista (usuário logado) disponível na request
         especialista = request.user
         
-        # instância da classe Analise com os dados fornecidos
-        imagem = Imagem.objects.get(pk=imagem_id)  # Obter a imagem com base no ID fornecido
-        analise = Analise(
-            imagem_id=imagem_id,
-            doenca_id=classe_id,
-            especialista=especialista,
-            # comentarios=comentarios
-        )
-               
-        analise.save()
-        imagem.classe = True
-        imagem.save()
-        messages.add_message(request, constants.SUCCESS, "Imagem Classificada")
-        return redirect('/images/galeria/')
+        try:
+            # Obter a imagem dentro de uma transação para evitar condições de corrida
+            with transaction.atomic():
+                imagem = Imagem.objects.select_for_update().get(pk=imagem_id)
+                
+                # Verificar se a imagem já foi classificada
+                if imagem.classe:
+                    messages.add_message(request, constants.ERROR, "Esta imagem já foi classificada por outro usuário")
+                    return redirect('/images/galeria/')
+                
+                # Salvar a classificação da imagem
+                imagem.classe = True
+                imagem.save()
+                
+                # Criar uma nova análise
+                analise = Analise(
+                    imagem=imagem,
+                    doenca_id=classe_id,
+                    especialista=especialista,
+                )
+                analise.save()
+                
+                messages.add_message(request, constants.SUCCESS, "Imagem Classificada")
+                return redirect('/images/galeria/')
+        except Imagem.DoesNotExist:
+            messages.add_message(request, constants.ERROR, "A imagem não existe")
+            return redirect('/images/galeria/')
+        except Exception as e:
+            messages.add_message(request, constants.ERROR, "Erro interno do sistema: " + str(e))
+            return redirect('/images/galeria/')
     else:
-        messages.add_message(request, constants.ERROR, "ERROR: error interno do sistema")
+        messages.add_message(request, constants.ERROR, "Método de requisição inválido")
         return redirect('/images/galeria/')
 @login_required
 def dashboard(request):
