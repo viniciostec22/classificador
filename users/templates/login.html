@@ -10,8 +10,9 @@
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-6 form-container">
-        <h2>Login</h2>
+    <div class="col-md-4 form-container">
+        <img class="rounded mx-auto d-block logo" src="{% static 'img/logo_brand.png' %}" alt="logo marca">
+       
         {% if messages %}
             {% for message in messages %}
                 <section class="alert {{message.tags}}">
@@ -31,7 +32,9 @@
             <button type="submit" class="btn btn-primary">Entrar</button>
         </form>
         <br>
-        <a href="{% url 'cadastro' %}" >Cadastrar novo usuário</a>
+        <a href="{% url 'cadastro' %}" class="new-user-link">Cadastrar novo usuário</a>
+
     </div>
 </div>
+
 {% endblock %}

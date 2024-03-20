@@ -43,11 +43,11 @@
     text-align: center;
 }
 
-.carousel-item img {
+/* .carousel-item img {
     max-width: 80%;
-    max-height: 400px; /* Defina a altura máxima desejada */
-    margin: auto; /* Centraliza a imagem horizontalmente */
-}
+    max-height: 400px; 
+    margin: auto; 
+} */
 
 /* Define a cor preta para as setas do carrossel */
 .carousel-control-prev,
@@ -73,9 +73,17 @@
 
 .carousel-item img {
     max-width: 80%;
-    max-height: 400px; /* Defina a altura máxima desejada */
+    max-height: 600px; /* Defina a altura máxima desejada */
     margin: auto; /* Centraliza a imagem horizontalmente */
-    margin-bottom: 20px; /* Adiciona margem abaixo da imagem */
+    margin-bottom: 30px; /* Adiciona margem abaixo da imagem */
 }
 
-
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa; /* Cor de fundo do rodapé */
+    padding: 20px; /* Espaçamento interno do rodapé */
+    text-align: center; /* Centraliza o conteúdo do rodapé */
+}

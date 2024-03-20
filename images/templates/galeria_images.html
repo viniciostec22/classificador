@@ -10,14 +10,15 @@
 {% endblock %}
 
 {% block content %}
+{% include "partials/header.html" %}
 <div class="container">
     {% if messages %}
-                {% for message in messages %}
-                    <section class="alert {{message.tags}}">
-                        {{message}}
-                    </section>
-                {% endfor %}
-            {% endif %}
+        {% for message in messages %}
+            <section class="alert {{message.tags}}">
+                {{message}}
+            </section>
+        {% endfor %}
+    {% endif %}
     <form method="post" action="{% url 'galeria' %}" id="galeriaForm">
         {% csrf_token %}
         
@@ -26,22 +27,23 @@
         
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="carousel-inner">
+                
                 {% for image in images %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ image.image.url }}" class="d-block mx-auto" alt="{{ image.alt }}">
-                    <input type="hidden" name="image_id_{{ image.id }}" value="{{ image.id }}">
-                    <div class="select-wrapper container">                    
-                        <div class="select-container">
-                            <select class="form-select classe_select" data-image-id="{{ image.id }}" aria-label="Default select example">
-                                {% for classe in classes %}
-                                    <option value="{{ classe.id }}">{{ classe.nome }}</option>
-                                {% endfor %}
-                            </select>
-                            <button type="button" class="btn btn-success submit_button">Classificar</button>
-                        </div> 
-                                       
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" class="d-block mx-auto" alt="{{ image.alt }}">
+                        <input type="hidden" name="image_id_{{ image.id }}" value="{{ image.id }}">
+                        <div class="select-wrapper container">                    
+                            <div class="select-container">
+                                <select class="form-select classe_select" data-image-id="{{ image.id }}" aria-label="Default select example">
+                                    {% for classe in classes %}
+                                        <option value="{{ classe.id }}">{{ classe.nome }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="button" class="btn btn-success submit_button">Classificar</button>
+                            </div> 
+                                        
+                        </div>
                     </div>
-                </div>
                 {% endfor %}
                 
             </div>

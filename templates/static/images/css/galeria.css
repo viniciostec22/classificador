@@ -21,3 +21,6 @@ button {
     display: flex;
     justify-content: center;
 }
+.footer{
+    position: relative;
+}

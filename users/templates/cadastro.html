@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-6 form-container">
+    <div class="col-md-4 form-container">
         {% if messages %}
             {% for message in messages %}
                 <section class="alert {{message.tags}}">
@@ -19,7 +19,7 @@
                 </section>
             {% endfor %}
         {% endif %}
-        <h2>Cadastro</h2>
+        <img  class="rounded mx-auto d-block logo" src="{% static 'img/logo_brand.png' %}" alt="logo marca">
         <form action="{% url 'cadastro' %}" method="POST"> {% csrf_token %}
             <div class="mb-3">
                 <label for="username" class="form-label">Nome de usuário</label>

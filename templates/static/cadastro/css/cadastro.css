@@ -7,6 +7,12 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #363636;
 }
+.logo{
+    max-width: 400px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
 
 .form-container h2 {
     text-align: center;
@@ -31,7 +37,7 @@
 .form-container button[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #000;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -39,5 +45,42 @@
 }
 
 .form-container button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #fff;
+    color: #000;
+    border: solid 1px;
+    transition: 0.5s;
+}
+.row{
+    margin-right: auto;
+}
+.fixed-bottom{
+    position: relative;
+    margin-top: 50px;
+}
+/* Estilos para telas pequenas (dispositivos móveis) */
+@media (max-width: 768px) {
+    .form-container {
+        margin-top: 0%;
+        text-align: center;
+
+        max-height: max-content;
+    }
+
+    .btn-primary {
+        margin-top: 10px; /* Adiciona um espaçamento acima do botão */
+    }
+
+    /* Estilo para o link abaixo do botão */
+    .new-user-link {
+        display: block; /* Garante que o link ocupe a largura total do contêiner */
+        text-align: center; /* Centraliza o texto do link */
+    }
+    .fixed-bottom{
+        position: relative;
+
+    }
+    .row{
+        margin-right: 0%;
+    }
+
 }
