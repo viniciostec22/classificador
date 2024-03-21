@@ -57,6 +57,9 @@
     position: relative;
     margin-top: 50px;
 }
+.footer{
+    position: relative;
+}
 /* Estilos para telas pequenas (dispositivos móveis) */
 @media (max-width: 768px) {
     .form-container {

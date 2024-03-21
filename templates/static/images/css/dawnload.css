@@ -1,0 +1,11 @@
+.total_download{
+    color: #000;
+    font-weight: bold;
+}
+.content{
+   max-width: 450px;
+}
+
+.footer{
+    position: relative;
+}

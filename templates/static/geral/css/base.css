@@ -19,3 +19,14 @@ nav{
 footer{
     margin-top: 30px;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa; /* Cor de fundo do rodapé */
+    padding: 20px; /* Espaçamento interno do rodapé */
+    text-align: center; /* Centraliza o conteúdo do rodapé */
+}
+
