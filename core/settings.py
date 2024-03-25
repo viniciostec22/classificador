@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-=s670w!z%-^i-dn=$=8l1ri8=^h3)87)f2_&@z9b(%u=c@5!+c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["nexuscodesolutions.com.br", "34.125.61.156"]
 
 
 # Application definition
@@ -84,12 +84,12 @@ if DEBUG == True:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'classificador_imagens',
             'USER': 'root',
             'PASSWORD': '059580',
-            'HOST': 'localhost',  # ou o host do seu servidor MySQL
-            'PORT': '3306',       # porta padrão do MySQL
+            'HOST': '127.0.0.1',  # 
+            'PORT': '5432',       # 
         }
     }
 
