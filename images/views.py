@@ -14,6 +14,10 @@ import shutil
 from django.contrib.auth.decorators import login_required
 import magic
 from django.db import transaction
+from PIL import Image
+from io import BytesIO
+import uuid
+from django.core.files.base import ContentFile
 
 
 @login_required
@@ -27,6 +31,7 @@ def images(request):
         if imagens:
             for imagem in imagens:
                 try:
+                    
                     #verificar tipo de MIME do arquivo
                     mime = magic.Magic(mime=True)
                     file_type = mime.from_buffer(imagem.read(1024))
@@ -37,12 +42,22 @@ def images(request):
                         messages.add_message(request, constants.ERROR, "Apenas imagens são permitidas")
                         return redirect('/images/new_images/')
                     
-                    # Se for uma imagem, salve-a no banco de dados
-                    nova_imagem = Imagem.objects.create(
-                        image=imagem,
-                        data_criacao=timezone.now(),
-                        usuario=request.user
-                    )
+                     # Abrir a imagem
+                    img = Image.open(imagem)
+                    
+                    # Comprimir a imagem
+                    img.save(imagem.name, optimize=True, quality=50)  # Ajuste a qualidade conforme necessário
+                    
+                    # Criar uma instância do modelo Imagem e salvar no banco de dados
+                    nova_imagem_bd = Imagem()
+                    nova_imagem_bd.image.save(imagem.name, open(imagem.name, 'rb'), save=False)
+                    nova_imagem_bd.data_criacao = timezone.now()
+                    nova_imagem_bd.usuario = request.user
+                    nova_imagem_bd.save()
+                    
+                    # Remover o arquivo temporário
+                    os.remove(imagem.name)
+                    
                 except Exception as e:
                     # Lidar com exceções que podem ocorrer durante a leitura ou verificação do tipo MIME
                     messages.add_message(request, constants.ERROR, f"Erro ao processar imagem: {str(e)}")

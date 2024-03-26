@@ -8,7 +8,7 @@
 }
 
 .logo{
-    max-width: 400px;
+    max-width: 200px;
     margin-top: 20px;
     margin-bottom: 20px;
     
@@ -89,4 +89,6 @@
         margin-right: 0%;
     }
 }
-
+.footer{
+    position: fixed;
+}

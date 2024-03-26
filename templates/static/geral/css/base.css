@@ -28,5 +28,10 @@ footer{
     background-color: #f8f9fa; /* Cor de fundo do rodapé */
     padding: 20px; /* Espaçamento interno do rodapé */
     text-align: center; /* Centraliza o conteúdo do rodapé */
+    
+}
+
+.footer a{
+    text-decoration: none;
 }
 

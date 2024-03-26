@@ -6,6 +6,7 @@ nginex-http.txt
 nginx-https.txt
 
 # Django #
+.env
 *.log
 *.pot
 *.pyc

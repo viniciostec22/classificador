@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=s670w!z%-^i-dn=$=8l1ri8=^h3)87)f2_&@z9b(%u=c@5!+c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,6 +80,16 @@ if DEBUG == True:
             'HOST': '127.0.0.1',  
             'PORT': '5432',       
         }
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.mysql',
+        #     'NAME': 'classificador_imagens_teste',
+        #     'USER': 'root',
+        #     'PASSWORD': '059580',
+        #     'HOST': '127.0.0.1',
+        #     'PORT': '3306',
+        # }
+
+        
     }
 else:
     DATABASES = {
