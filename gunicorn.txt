@@ -1,0 +1,75 @@
+###############################################################################
+# Replace
+# app_classificacao to the name of the gunicorn file you want
+# vinic to your user name
+# app_repo to the folder name of your project
+# core to the folder name where you find a file called wsgi.py
+#
+###############################################################################
+# Criando o arquivo app_classificacao.socket
+sudo nano /etc/systemd/system/app_classificacao.socket
+
+###############################################################################
+# Conteúdo do arquivo
+[Unit]
+Description=gunicorn blog socket
+
+[Socket]
+ListenStream=/run/app_classificacao.socket
+
+[Install]
+WantedBy=sockets.target
+
+###############################################################################
+# Criando o arquivo app_classificacao.service
+sudo nano /etc/systemd/system/app_classificacao.service
+
+###############################################################################
+# Conteúdo do arquivo
+[Unit]
+Description=Gunicorn daemon (You can change if you want)
+Requires=app_classificacao.socket
+After=network.target
+
+[Service]
+User=vinic
+Group=www-data
+Restart=on-failure
+EnvironmentFile=/home/vinic/app_repo/.env
+WorkingDirectory=/home/vinic/app_repo
+# --error-logfile --enable-stdio-inheritance --log-level and --capture-output
+# are all for debugging purposes.
+ExecStart=/home/vinic/app_repo/venv/bin/gunicorn \
+          --error-logfile /home/vinic/app_repo/gunicorn-error-log \
+          --enable-stdio-inheritance \
+          --log-level "debug" \
+          --capture-output \
+          --access-logfile - \
+          --workers 6 \
+          --bind unix:/run/app_classificacao.socket \
+          core.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+###############################################################################
+# Ativando
+sudo systemctl start app_classificacao.socket
+sudo systemctl enable app_classificacao.socket
+
+# Checando
+sudo systemctl status app_classificacao.socket
+curl --unix-socket /run/app_classificacao.socket localhost
+sudo systemctl status app_classificacao
+
+# Restarting
+sudo systemctl restart app_classificacao.service
+sudo systemctl restart app_classificacao.socket
+sudo systemctl restart app_classificacao
+
+# After changing something
+sudo systemctl daemon-reload
+
+# Debugging
+sudo journalctl -u app_classificacao.service
+sudo journalctl -u app_classificacao.socket

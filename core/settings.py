@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-=s670w!z%-^i-dn=$=8l1ri8=^h3)87)f2_&@z9b(%u=c@5!+c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["nexuscodesolutions.com.br", "34.125.61.156"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,8 +77,8 @@ if DEBUG == True:
             'NAME': 'classificador_imagens_teste',
             'USER': 'root',
             'PASSWORD': '059580',
-            'HOST': '127.0.0.1',  # ou o host do seu servidor MySQL
-            'PORT': '5432',       # porta padrão do MySQL
+            'HOST': '127.0.0.1',  
+            'PORT': '5432',       
         }
     }
 else:
