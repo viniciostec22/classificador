@@ -8,11 +8,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=s670w!z%-^i-dn=$=8l1ri8=^h3)87)f2_&@z9b(%u=c@5!+c'
+# Carregar a chave secreta do ambiente ou usar uma chave padrão se não estiver definida
+SECRET_KEY = os.environ.get('SECRET_KEY', 'my_default_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -70,39 +70,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-if DEBUG == True:
-     DATABASES = {
+if DEBUG:
+    DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'classificador_imagens_teste',
-            'USER': 'root',
-            'PASSWORD': '059580',
-            'HOST': '127.0.0.1',  
-            'PORT': '5432',       
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
-        # 'default': {
-        #     'ENGINE': 'django.db.backends.mysql',
-        #     'NAME': 'classificador_imagens_teste',
-        #     'USER': 'root',
-        #     'PASSWORD': '059580',
-        #     'HOST': '127.0.0.1',
-        #     'PORT': '3306',
-        # }
-
-        
     }
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'classificador_imagens',
-            'USER': 'root',
-            'PASSWORD': '059580',
-            'HOST': '127.0.0.1',  # 
-            'PORT': '5432',       # 
+            'ENGINE': os.environ.get('DATABASE_ENGINE'),
+            'NAME': os.environ.get('DATABASE_NAME'),
+            'USER': os.environ.get('DATABASE_USER'),
+            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+            'HOST': os.environ.get('DATABASE_HOST'),
+            'PORT': os.environ.get('DATABASE_PORT'),
         }
     }
-
 
 
 # Password validation
