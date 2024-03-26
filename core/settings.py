@@ -73,12 +73,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 if DEBUG == True:
      DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'classificador_imagens_teste',
             'USER': 'root',
             'PASSWORD': '059580',
-            'HOST': 'localhost',  # ou o host do seu servidor MySQL
-            'PORT': '3306',       # porta padrão do MySQL
+            'HOST': '127.0.0.1',  # ou o host do seu servidor MySQL
+            'PORT': '5432',       # porta padrão do MySQL
         }
     }
 else:
