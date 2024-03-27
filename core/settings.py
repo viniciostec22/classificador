@@ -81,7 +81,7 @@ if DEBUG == False:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'lassificador_imagens',
+            'NAME': 'classificador_imagens',
             'USER': 'root',
             'PASSWORD': '059580',
             'HOST': '127.0.0.1',
