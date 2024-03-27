@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # Carregar a chave secreta do ambiente ou usar uma chave padrão se não estiver definida
-SECRET_KEY = os.environ.get('SECRET_KEY', 'my_default_secret_key')
+SECRET_KEY = 'django-insecure-=s670w!z%-^i-dn=$=8l1ri8=^h3)87)f2_&@z9b(%u=c@5!+c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -75,22 +75,26 @@ WSGI_APPLICATION = 'core.wsgi.application'
 if DEBUG == False:
     DATABASES = {
         'default': {
-            'ENGINE': os.environ.get('DATABASE_ENGINE'),
-            'NAME': os.environ.get('DATABASE_NAME'),
-            'USER': os.environ.get('DATABASE_USER'),
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-            'HOST': os.environ.get('DATABASE_HOST'),
-            'PORT': os.environ.get('DATABASE_PORT'),
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'lassificador_imagens',
+            'USER': 'root',
+            'PASSWORD': '059580',
+            'HOST': '127.0.0.1',
+            'PORT': '5432'
         }
     }
     
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+    'default': {
+        'ENGINE': os.environ['ENGINE'],
+        'NAME': os.environ['NAME'],
+        'USER': os.environ['USER'],
+        'PASSWORD': os.environ['PASSWORD'],
+        'HOST': os.environ['HOST'],
+        'PORT': os.environ['PORT'],
     }
+}
 
 
 # Password validation
