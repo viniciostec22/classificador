@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-=s670w!z%-^i-dn=$=8l1ri8=^h3)87)f2_&@z9b(%u=c@5!+c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://vision.nexuscodesolutions.com.br']
+ALLOWED_HOSTS = ['*']
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
