@@ -16,10 +16,16 @@ body{
 nav{
     margin-bottom: 30px;
 }
+
+
 footer{
     margin-top: 30px;
 }
-
+.dropdown-menu{
+    --bs-dropdown-link-hover-bg: var(--differential-color);
+    --bs-dropdown-link-hover-color: #f8f9fa;
+    transition: 0.5s;
+}
 .footer {
     position: fixed;
     left: 0;
