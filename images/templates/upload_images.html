@@ -25,7 +25,8 @@
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="image" class="form-label">Selecione as imagens</label>
-                    <input type="file" class="form-control" id="image" name="image" multiple>
+                    <input type="file" class="form-control" id="image" name="image" multiple >
+                    <p>Máximo 5 fotos</p>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
