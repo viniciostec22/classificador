@@ -70,9 +70,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
-if DEBUG == False:
-    DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': os.getenv('ENGINE'),
             'NAME': os.getenv('NAME'),
@@ -82,23 +80,7 @@ if DEBUG == False:
             'PORT': os.getenv('PORT'),
         }
     }
-    
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': os.getenv('ENGINE'),
-            'NAME': os.getenv('NAME'),
-            'USER': os.getenv('USER'),
-            'PASSWORD': os.getenv('PASSWORD'),
-            'HOST': os.getenv('HOST'),
-            'PORT': os.getenv('PORT'),
-        }
-    }
-   
 
-
-# print(os.getenv('ENGINE'))
-# print(os.getenv('NAME'))
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

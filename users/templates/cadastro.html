@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block titulo %}
-<title>Cadastrar</title>
+    <title>Cadastrar</title>
 {% endblock titulo %}
 
 {% block extra_css %}
@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+{% include "partials/header.html" %}
 <div class="row justify-content-center">
     <div class="col-md-4 form-container">
         {% if messages %}
@@ -39,8 +40,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
-        <br>
-        <a href="{% url 'login' %}" >Login</a>
     </div>
 </div>
 {% endblock %}

@@ -18,7 +18,7 @@ from PIL import Image
 from io import BytesIO
 import uuid
 from django.core.files.base import ContentFile
-
+from datetime import datetime
 
 @login_required
 def images(request):
@@ -47,10 +47,11 @@ def images(request):
                     
                     # Comprimir a imagem
                     img.save(imagem.name, optimize=True, quality=50)  # Ajuste a qualidade conforme necessário
-                    
+                    # Gerar um nome de arquivo único baseado na data e hora atual
+                    nome_arquivo = datetime.now().strftime("%Y%m%d%H%M%S") + '_' + imagem.name
                     # Criar uma instância do modelo Imagem e salvar no banco de dados
                     nova_imagem_bd = Imagem()
-                    nova_imagem_bd.image.save(imagem.name, open(imagem.name, 'rb'), save=False)
+                    nova_imagem_bd.image.save(nome_arquivo, open(imagem.name, 'rb'), save=False)
                     nova_imagem_bd.data_criacao = timezone.now()
                     nova_imagem_bd.usuario = request.user
                     nova_imagem_bd.save()
